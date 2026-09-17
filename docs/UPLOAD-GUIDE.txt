@@ -1,0 +1,11 @@
+CẨN TRỌNG: BẢN 1.2.1 HIỆN LÀ ỨNG VIÊN ĐANG KIỂM TRA, CHƯA ĐƯỢC XÁC NHẬN BUILD.
+
+1. Giữ repository GitHub cũ, tuyệt đối không xóa lúc này.
+2. Không đưa file .env.local, Service Account JSON, private key, APP_SHARED_SECRET hoặc dữ liệu nội bộ lên Public GitHub.
+3. Trên máy có Node.js 22+, giải nén ZIP, mở terminal trong thư mục có package.json:
+   npm install
+   npm run check
+   npm run build
+4. Chỉ khi ba bước đều PASS mới commit toàn bộ source sạch (một commit); không upload từng file riêng lẻ.
+5. Chưa thay Vercel Git connection, chưa Publish Rules cho đến khi đối chiếu và phê duyệt.
+6. Firestore Rules/Indexes: đọc docs/FIRESTORE-DEPLOY.txt.

@@ -1,0 +1,60 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function profile() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function active() {
+      return signedIn() && profile().status == 'active';
+    }
+
+    function admin() {
+      return active() && profile().role == 'admin';
+    }
+
+    match /users/{uid} {
+      allow read: if signedIn() && (request.auth.uid == uid || admin());
+      allow write: if false;
+    }
+
+    match /workRecords/{recordId} {
+      allow read: if admin() || (active() && resource.data.ownerUid == request.auth.uid);
+      allow write: if false;
+    }
+
+    match /categories/{categoryId} {
+      allow read: if admin() || (active() && resource.data.isActive == true);
+      allow write: if false;
+    }
+
+    match /notifications/{notificationId} {
+      allow read: if active() && resource.data.recipientUid == request.auth.uid;
+      allow write: if false;
+    }
+
+    match /files/{fileId} {
+      // Metadata file chứa Drive file id và chỉ được truy cập qua Server API.
+      // Firebase Admin SDK phía server bypass rules và tự kiểm tra owner/admin.
+      allow read, write: if false;
+    }
+
+    match /audits/{auditId} {
+      allow read: if admin();
+      allow write: if false;
+    }
+
+    match /settings/{settingId} {
+      allow read: if admin();
+      allow write: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

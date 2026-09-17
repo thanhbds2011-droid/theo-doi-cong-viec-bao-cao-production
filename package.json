@@ -1,0 +1,30 @@
+{
+  "name": "theo-doi-cong-viec-bao-cao",
+  "version": "1.2.1",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "preflight": "node scripts/preflight.mjs && node scripts/verify-contracts.mjs",
+    "check": "npm run preflight && npm run typecheck"
+  },
+  "dependencies": {
+    "firebase": "12.19.0",
+    "firebase-admin": "13.10.0",
+    "lucide-react": "1.45.0",
+    "next": "16.3.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.0",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "typescript": "5.8.3"
+  }
+}

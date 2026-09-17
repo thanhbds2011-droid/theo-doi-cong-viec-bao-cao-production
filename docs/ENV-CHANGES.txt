@@ -1,0 +1,14 @@
+ENV v1.2.0
+
+CẬP NHẬT (Config, Vercel Production / Preview nếu dùng):
+NEXT_PUBLIC_APP_VERSION=1.2.0
+
+KHÔNG đổi / KHÔNG gửi bí mật:
+FIREBASE_ADMIN_PRIVATE_KEY
+FIREBASE_ADMIN_CLIENT_EMAIL
+APP_SHARED_SECRET
+INITIAL_ADMIN_EMAIL (giữ đúng Gmail quản trị đầu tiên đã cấu hình)
+
+Giữ nguyên các NEXT_PUBLIC_FIREBASE_* đang xác thực Google thành công.
+Không thêm biến OneSignal.
+Sau khi sửa NEXT_PUBLIC_APP_VERSION, Vercel cần deployment mới để giá trị public được đóng vào frontend.

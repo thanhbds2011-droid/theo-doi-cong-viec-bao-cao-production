@@ -1,0 +1,14 @@
+BẢN ĐỀ XUẤT 1.2.1 — CHƯA TRIỂN KHAI FIRESTORE
+
+Không tự Publish hoặc Deploy Rules. Hãy sao lưu Rules thực tế trước, đối chiếu và phê duyệt riêng.
+So với Rules người dùng đã cung cấp trong cuộc trò chuyện:
+1. notifications/{notificationId}: chỉ người nhận active được đọc, kể cả khi người dùng mang quyền Quản trị viên.
+2. files/{fileId}: chỉ máy chủ Firebase Admin SDK được đọc/ghi; trình duyệt bị từ chối để thông tin Drive đi qua Server API.
+3. Các block còn lại giữ nguyên như Rules được cung cấp.
+
+Sau khi người dùng xác nhận và đã kiểm tra mọi luồng, triển khai có chủ đích:
+  firebase deploy --only firestore:rules --project theo-doi-cong-viec-va-bao-cao
+
+Indexes: file source có composite indexes users(role,status) và notifications(recipientUid,createdAt); kiểm tra index thực tế trên Console. Nếu thiếu, sau khi duyệt triển khai:
+  firebase deploy --only firestore:indexes --project theo-doi-cong-viec-va-bao-cao
+Đợi các index ở trạng thái Enabled rồi mới kiểm thử. Không xóa dữ liệu Firestore, Auth hoặc Drive.
